@@ -1,0 +1,26 @@
+{
+  "producto": "Zelda: Ocarina of Time (Switch 2)",
+  "palabra_clave": "ocarina",
+  "tiendas": [
+    {
+      "nombre": "Paris",
+      "url": "https://www.paris.cl/preventa-juego-nintendo-switch-2-the-legend-of-zelda-ocarina-of-time-609808999.html"
+    },
+    {
+      "nombre": "Bestmart",
+      "url": "https://bestmart.cl/products/juego-the-legend-of-zelda-ocarina-of-time-nintendo-switch-2"
+    },
+    {
+      "nombre": "8-Bits",
+      "url": "https://8-bits.cl/products/the-legend-of-zelda-ocarina-of-time-nintendo-switch-2"
+    },
+    {
+      "nombre": "Kaio Juegos",
+      "url": "https://kaiojuegos.cl/nintendo-switch-2/2647-the-legends-of-zelda-ocarina-of-time-switch-2.html"
+    },
+    {
+      "nombre": "Todojuegos",
+      "url": "https://www.todojuegos.cl/Productos/NS2/The-Legend-of-Zelda--Ocarina-of-Time/"
+    }
+  ]
+}

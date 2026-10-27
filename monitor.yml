@@ -1,0 +1,44 @@
+name: Monitor Ocarina of Time
+
+on:
+  schedule:
+    # Repositorio PUBLICO: revisa cada 5 minutos (gratis y sin limite).
+    # Si tu repositorio es PRIVADO, cambia la linea de abajo por:   - cron: '2,32 * * * *'
+    - cron: '2,7,12,17,22,27,32,37,42,47,52,57 * * * *'
+  # Boton "Run workflow": manda a Telegram el estado de todas las tiendas.
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: monitor-ocarina
+  cancel-in-progress: false
+
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v5
+
+      - name: Revisar tiendas
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MODO: ${{ github.event_name == 'workflow_dispatch' && 'resumen' || 'auto' }}
+        run: python3 monitor.py
+
+      - name: Guardar estado
+        run: |
+          if [ -z "$(git status --porcelain -- estado.json)" ]; then
+            echo "Sin cambios en el estado."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add estado.json
+          git commit -m "Actualizar estado [skip ci]"
+          git pull --rebase --quiet origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
